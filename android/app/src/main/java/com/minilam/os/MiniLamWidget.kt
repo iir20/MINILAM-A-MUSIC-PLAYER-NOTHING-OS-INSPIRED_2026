@@ -132,7 +132,7 @@ class MiniLamWidget : GlanceAppWidget() {
                     Spacer(modifier = GlanceModifier.height(8.dp))
                     
                     // Progress Bar
-                    Box(
+                    Row(
                         modifier = GlanceModifier
                             .fillMaxWidth()
                             .height(2.dp)
@@ -140,10 +140,11 @@ class MiniLamWidget : GlanceAppWidget() {
                     ) {
                         Box(
                             modifier = GlanceModifier
-                                .fillMaxWidth(0.45f) // Mock progress
+                                .defaultWeight(0.45f)
                                 .fillMaxHeight()
                                 .background(Color(0xFFFF3B30))
                         ) {}
+                        Spacer(modifier = GlanceModifier.defaultWeight(0.55f))
                     }
                 }
             }
@@ -239,12 +240,15 @@ class MiniLamWidget : GlanceAppWidget() {
                 Spacer(modifier = GlanceModifier.defaultWeight())
                 Text(text = value, style = TextStyle(color = ColorProvider(Color.White), fontSize = 8.sp))
             }
-            Box(
-                modifier = GlanceModifier.fillMaxWidth().height(1.dp).background(Color.White.copy(alpha = 0.1f)).padding(top = 2.dp)
+            Row(
+                modifier = GlanceModifier.fillMaxWidth().height(1.dp).background(Color.White.copy(alpha = 0.1f))
             ) {
                 Box(
-                    modifier = GlanceModifier.fillMaxWidth(progress).fillMaxHeight().background(Color.White.copy(alpha = 0.5f))
+                    modifier = GlanceModifier.defaultWeight(progress).fillMaxHeight().background(Color.White.copy(alpha = 0.5f))
                 ) {}
+                if (progress < 1f) {
+                    Spacer(modifier = GlanceModifier.defaultWeight(1f - progress))
+                }
             }
         }
     }
