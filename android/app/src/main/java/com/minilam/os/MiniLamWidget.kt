@@ -140,11 +140,11 @@ class MiniLamWidget : GlanceAppWidget() {
                     ) {
                         Box(
                             modifier = GlanceModifier
-                                .defaultWeight(0.45f)
+                                .defaultWeight()
                                 .fillMaxHeight()
                                 .background(Color(0xFFFF3B30))
                         ) {}
-                        Spacer(modifier = GlanceModifier.defaultWeight(0.55f))
+                        Spacer(modifier = GlanceModifier.defaultWeight())
                     }
                 }
             }
@@ -244,10 +244,10 @@ class MiniLamWidget : GlanceAppWidget() {
                 modifier = GlanceModifier.fillMaxWidth().height(1.dp).background(Color.White.copy(alpha = 0.1f))
             ) {
                 Box(
-                    modifier = GlanceModifier.defaultWeight(progress).fillMaxHeight().background(Color.White.copy(alpha = 0.5f))
+                    modifier = GlanceModifier.defaultWeight().fillMaxHeight().background(Color.White.copy(alpha = 0.5f))
                 ) {}
                 if (progress < 1f) {
-                    Spacer(modifier = GlanceModifier.defaultWeight(1f - progress))
+                    Spacer(modifier = GlanceModifier.defaultWeight())
                 }
             }
         }
