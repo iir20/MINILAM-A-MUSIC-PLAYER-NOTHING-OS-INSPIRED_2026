@@ -132,7 +132,7 @@ class MiniLamWidget : GlanceAppWidget() {
             Spacer(modifier = GlanceModifier.height(8.dp))
             
             // Progress Bar (Simplified for Glance)
-            Box(
+            Row(
                 modifier = GlanceModifier
                     .fillMaxWidth()
                     .height(2.dp)
@@ -140,7 +140,7 @@ class MiniLamWidget : GlanceAppWidget() {
             ) {
                 Box(
                     modifier = GlanceModifier
-                        .defaultWeight(0.65f) // Using weight for progress
+                        .defaultWeight(0.65f)
                         .fillMaxHeight()
                         .background(Color(0xFFFF3B30))
                 ) {}
