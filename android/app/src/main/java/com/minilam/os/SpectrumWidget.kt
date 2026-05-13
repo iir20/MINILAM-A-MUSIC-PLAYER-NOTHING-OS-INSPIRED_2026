@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.sp
 import androidx.glance.Alignment
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
+import androidx.glance.GlanceTheme
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.*
@@ -20,43 +21,59 @@ import androidx.glance.background
 class SpectrumWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
-            Column(
-                modifier = GlanceModifier
-                    .fillMaxSize()
-                    .background(Color.Black)
-                    .padding(12.dp)
-            ) {
-                Text(
-                    text = "SPECTRUM_ANALYZER",
-                    style = TextStyle(color = ColorProvider(Color.White), fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                )
-                
-                Spacer(modifier = GlanceModifier.height(12.dp))
-                
-                // Spectrum Bars
-                Row(
-                    modifier = GlanceModifier.fillMaxWidth().height(80.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalAlignment = Alignment.Bottom
+            GlanceTheme {
+                Column(
+                    modifier = GlanceModifier
+                        .fillMaxSize()
+                        .background(Color.Black)
+                        .padding(10.dp)
                 ) {
-                    val bars = listOf(30, 50, 70, 40, 60, 30, 45, 20, 40, 55, 75, 15)
-                    bars.forEachIndexed { i, h ->
-                        Box(
-                            modifier = GlanceModifier
-                                .defaultWeight()
-                                .height(h.dp)
-                                .padding(horizontal = 1.dp)
-                                .background(if (i % 3 == 0) Color(0xFFFF3B30) else Color.White.copy(alpha = 0.4f))
-                        ) {}
+                    // Header Status
+                    Row(
+                        modifier = GlanceModifier.fillMaxWidth().padding(bottom = 8.dp),
+                        verticalAlignment = Alignment.Vertical.CenterVertically
+                    ) {
+                        Text(
+                            text = "SPECTRUM_ANALYSIS",
+                            style = TextStyle(color = ColorProvider(Color.White), fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                        )
+                        Spacer(modifier = GlanceModifier.defaultWeight())
+                        Box(modifier = GlanceModifier.size(4.dp).background(Color(0xFFFF3B30))) {}
                     }
-                }
-                
-                Spacer(modifier = GlanceModifier.height(8.dp))
-                
-                Row(modifier = GlanceModifier.fillMaxWidth()) {
-                    Text(text = "20Hz", style = TextStyle(color = ColorProvider(Color.White.copy(alpha = 0.3f)), fontSize = 6.sp))
-                    Spacer(modifier = GlanceModifier.defaultWeight())
-                    Text(text = "20kHz", style = TextStyle(color = ColorProvider(Color.White.copy(alpha = 0.3f)), fontSize = 6.sp))
+                    
+                    // Spectrum Area
+                    Box(
+                        modifier = GlanceModifier
+                            .fillMaxWidth()
+                            .height(80.dp)
+                            .background(Color.White.copy(alpha = 0.05f))
+                            .padding(8.dp)
+                    ) {
+                        Row(
+                            modifier = GlanceModifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.Horizontal.CenterHorizontally,
+                            verticalAlignment = Alignment.Vertical.Bottom
+                        ) {
+                            val bars = listOf(25, 45, 65, 35, 55, 25, 40, 15, 35, 50, 70, 10, 30, 45, 20)
+                            bars.forEachIndexed { i, h ->
+                                Box(
+                                    modifier = GlanceModifier
+                                        .defaultWeight()
+                                        .height(h.dp)
+                                        .padding(horizontal = 1.dp)
+                                        .background(if (i % 5 == 0) Color(0xFFFF3B30) else Color.White.copy(alpha = 0.3f))
+                                ) {}
+                            }
+                        }
+                    }
+                    
+                    Spacer(modifier = GlanceModifier.height(8.dp))
+                    
+                    Row(modifier = GlanceModifier.fillMaxWidth()) {
+                        Text(text = "LOW_END", style = TextStyle(color = ColorProvider(Color.White.copy(alpha = 0.3f)), fontSize = 6.sp))
+                        Spacer(modifier = GlanceModifier.defaultWeight())
+                        Text(text = "HIGH_END", style = TextStyle(color = ColorProvider(Color.White.copy(alpha = 0.3f)), fontSize = 6.sp))
+                    }
                 }
             }
         }

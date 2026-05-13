@@ -46,107 +46,104 @@ class MiniLamWidget : GlanceAppWidget() {
                 .fillMaxSize()
                 .background(Color.Black)
                 .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalAlignment = Alignment.Vertical.CenterVertically,
+            horizontalAlignment = Alignment.Horizontal.CenterHorizontally
         ) {
-            // Main Container with Glassmorphism Border simulation
-            Box(
-                modifier = GlanceModifier
-                    .fillMaxSize()
-                    .padding(2.dp)
+            // Header Status
+            Row(
+                modifier = GlanceModifier.fillMaxWidth().padding(bottom = 4.dp),
+                verticalAlignment = Alignment.Vertical.CenterVertically
             ) {
-                Column(
-                    modifier = GlanceModifier.fillMaxSize(),
-                    verticalAlignment = Alignment.Vertical.CenterVertically
-                ) {
-                    // Header Status
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().padding(bottom = 8.dp),
-                        horizontalAlignment = Alignment.Horizontal.Start
-                    ) {
-                        Text(
-                            text = "SYSTEM_READY // 2035",
-                            style = TextStyle(
-                                color = ColorProvider(Color.White.copy(alpha = 0.4f)),
-                                fontSize = 8.sp,
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Start
-                            )
-                        )
-                    }
+                Box(modifier = GlanceModifier.size(4.dp).background(Color(0xFFFF3B30))) {}
+                Spacer(modifier = GlanceModifier.width(4.dp))
+                Text(
+                    text = "MINILAM_CORE_v2.6",
+                    style = TextStyle(
+                        color = ColorProvider(Color.White.copy(alpha = 0.4f)),
+                        fontSize = 7.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+                Spacer(modifier = GlanceModifier.defaultWeight())
+                Text(
+                    text = "ID_42069",
+                    style = TextStyle(
+                        color = ColorProvider(Color.White.copy(alpha = 0.2f)),
+                        fontSize = 7.sp
+                    )
+                )
+            }
 
-                    // Music Info Area
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(modifier = GlanceModifier.defaultWeight()) {
-                            Text(
-                                text = "STARDUST_PROFILES",
-                                style = TextStyle(
-                                    color = ColorProvider(Color.White),
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold
-                                ),
-                                maxLines = 1
-                            )
-                            Text(
-                                text = "NEO_KOBE_STATION",
-                                style = TextStyle(
-                                    color = ColorProvider(Color.White.copy(alpha = 0.6f)),
-                                    fontSize = 10.sp
-                                ),
-                                maxLines = 1
-                            )
-                        }
-                        
-                        // Small Dot Matrix Visualizer Simulation
-                        Row(modifier = GlanceModifier.height(16.dp)) {
-                            repeat(4) { i ->
-                                Box(
-                                    modifier = GlanceModifier
-                                        .width(3.dp)
-                                        .fillMaxHeight()
-                                        .padding(horizontal = 0.5.dp)
-                                        .background(if (i == 2) Color(0xFFFF3B30) else Color.White.copy(alpha = 0.3f))
-                                ) {}
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = GlanceModifier.height(8.dp))
-
-                    // Controls
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        ControlIcon(context, "PREV")
-                        Spacer(modifier = GlanceModifier.width(16.dp))
-                        PlayPauseButton(context, true)
-                        Spacer(modifier = GlanceModifier.width(16.dp))
-                        ControlIcon(context, "NEXT")
-                    }
-                    
-                    Spacer(modifier = GlanceModifier.height(8.dp))
-                    
-                    // Progress Bar
-                    Row(
-                        modifier = GlanceModifier
-                            .fillMaxWidth()
-                            .height(2.dp)
-                            .background(Color.White.copy(alpha = 0.1f))
-                    ) {
+            // Music Info Area
+            Row(
+                modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
+                verticalAlignment = Alignment.Vertical.CenterVertically
+            ) {
+                Column(modifier = GlanceModifier.defaultWeight()) {
+                    Text(
+                        text = "NEO_KOBE_NIGHTS",
+                        style = TextStyle(
+                            color = ColorProvider(Color.White),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        maxLines = 1
+                    )
+                    Text(
+                        text = "VIRTUAL_SYNTH_WAVE",
+                        style = TextStyle(
+                            color = ColorProvider(Color.White.copy(alpha = 0.6f)),
+                            fontSize = 9.sp
+                        ),
+                        maxLines = 1
+                    )
+                }
+                
+                // Pixelated waveform simulation
+                Row(modifier = GlanceModifier.height(20.dp).padding(start = 8.dp)) {
+                    val levels = listOf(0.3f, 0.8f, 0.5f, 0.9f, 0.4f, 0.7f)
+                    levels.forEach { level ->
                         Box(
                             modifier = GlanceModifier
-                                .defaultWeight()
-                                .fillMaxHeight()
-                                .background(Color(0xFFFF3B30))
+                                .width(2.dp)
+                                .fillMaxHeight(level)
+                                .background(Color.White.copy(alpha = 0.3f))
+                                .padding(horizontal = 0.5.dp)
                         ) {}
-                        Spacer(modifier = GlanceModifier.defaultWeight())
                     }
                 }
+            }
+
+            Spacer(modifier = GlanceModifier.height(8.dp))
+
+            // Controls
+            Row(
+                modifier = GlanceModifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Horizontal.CenterHorizontally,
+                verticalAlignment = Alignment.Vertical.CenterVertically
+            ) {
+                ControlIcon(context, "PREV")
+                Spacer(modifier = GlanceModifier.width(12.dp))
+                PlayPauseButton(context, true)
+                Spacer(modifier = GlanceModifier.width(12.dp))
+                ControlIcon(context, "NEXT")
+            }
+            
+            Spacer(modifier = GlanceModifier.height(8.dp))
+            
+            // Progress Bar (Simplified for Glance)
+            Box(
+                modifier = GlanceModifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(Color.White.copy(alpha = 0.1f))
+            ) {
+                Box(
+                    modifier = GlanceModifier
+                        .fillMaxWidth(0.65f) // Fixed progress for mock
+                        .fillMaxHeight()
+                        .background(Color(0xFFFF3B30))
+                ) {}
             }
         }
     }
@@ -247,15 +244,16 @@ class ClockWidget : GlanceAppWidget() {
 
                     // Dot matrix simulation at bottom
                     Row(
-                        modifier = GlanceModifier.fillMaxWidth().height(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = GlanceModifier.fillMaxWidth().height(20.dp),
+                        verticalAlignment = Alignment.Vertical.CenterVertically,
+                        horizontalAlignment = Alignment.Horizontal.CenterHorizontally
                     ) {
-                        repeat(24) { i ->
+                        repeat(32) { i ->
                             Box(
                                 modifier = GlanceModifier
                                     .size(2.dp)
                                     .padding(horizontal = 1.dp)
-                                    .background(if (i % 4 == 0) Color(0xFFFF3B30) else Color.White.copy(alpha = 0.2f))
+                                    .background(if (i % 8 == 0) Color(0xFFFF3B30) else Color.White.copy(alpha = 0.15f))
                             ) {}
                         }
                     }
