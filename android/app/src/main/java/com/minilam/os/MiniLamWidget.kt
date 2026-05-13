@@ -106,7 +106,7 @@ class MiniLamWidget : GlanceAppWidget() {
                         Box(
                             modifier = GlanceModifier
                                 .width(2.dp)
-                                .fillMaxHeight(level)
+                                .height((20 * level).dp)
                                 .background(Color.White.copy(alpha = 0.3f))
                                 .padding(horizontal = 0.5.dp)
                         ) {}
@@ -140,10 +140,11 @@ class MiniLamWidget : GlanceAppWidget() {
             ) {
                 Box(
                     modifier = GlanceModifier
-                        .fillMaxWidth(0.65f) // Fixed progress for mock
+                        .defaultWeight(0.65f) // Using weight for progress
                         .fillMaxHeight()
                         .background(Color(0xFFFF3B30))
                 ) {}
+                Spacer(modifier = GlanceModifier.defaultWeight(0.35f))
             }
         }
     }
