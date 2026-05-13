@@ -5,11 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color as ComposeColor
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.glance.Alignment
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.LinearProgressIndicator
 import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.*
 import androidx.glance.text.Text
@@ -90,13 +90,12 @@ class SystemStatusWidget : GlanceAppWidget() {
                 }
                 Spacer(modifier = GlanceModifier.height(4.dp))
                 // Minimal horizontal bar
-                Box(
-                    modifier = GlanceModifier.fillMaxWidth().height(1.dp).background(ComposeColor.White.copy(alpha = 0.1f))
-                ) {
-                    Box(
-                        modifier = GlanceModifier.fillMaxWidth().height(1.dp).background(ComposeColor(0xFFFF3B30).copy(alpha = 0.6f))
-                    ) {}
-                }
+                LinearProgressIndicator(
+                    progress = progress,
+                    modifier = GlanceModifier.fillMaxWidth().height(1.dp),
+                    color = ColorProvider(ComposeColor(0xFFFF3B30).copy(alpha = 0.6f)),
+                    backgroundColor = ColorProvider(ComposeColor.White.copy(alpha = 0.1f))
+                )
             }
         }
     }

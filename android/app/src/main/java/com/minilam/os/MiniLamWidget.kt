@@ -14,6 +14,7 @@ import androidx.glance.action.ActionParameters
 import androidx.glance.action.actionParametersOf
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.LinearProgressIndicator
 import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.action.ToggleableStateKey
 import androidx.glance.appwidget.action.actionRunCallback
@@ -131,21 +132,12 @@ class MiniLamWidget : GlanceAppWidget() {
             
             Spacer(modifier = GlanceModifier.height(8.dp))
             
-            // Progress Bar (Simplified for Glance)
-            Row(
-                modifier = GlanceModifier
-                    .fillMaxWidth()
-                    .height(2.dp)
-                    .background(Color.White.copy(alpha = 0.1f))
-            ) {
-                Box(
-                    modifier = GlanceModifier
-                        .defaultWeight()
-                        .fillMaxHeight()
-                        .background(Color(0xFFFF3B30))
-                ) {}
-                Spacer(modifier = GlanceModifier.defaultWeight())
-            }
+            LinearProgressIndicator(
+                progress = 0.65f,
+                modifier = GlanceModifier.fillMaxWidth().height(2.dp),
+                color = ColorProvider(Color(0xFFFF3B30)),
+                backgroundColor = ColorProvider(Color.White.copy(alpha = 0.1f))
+            )
         }
     }
 
