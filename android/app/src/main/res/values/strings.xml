@@ -8,4 +8,6 @@
     <string name="widget_description_clock">MiniLam Dot Matrix System Clock</string>
     <string name="widget_description_vinyl">MiniLam Active Vinyl Deck</string>
     <string name="widget_description_system">MiniLam Cyberpunk System Status</string>
+    <string name="widget_description_cassette">MiniLam Type-II Analog Cassette</string>
+    <string name="widget_description_spectrum">MiniLam Visual Spectrum Analyzer</string>
 </resources>

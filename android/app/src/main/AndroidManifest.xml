@@ -84,6 +84,30 @@
                 android:resource="@xml/system_status_widget_info" />
         </receiver>
 
+        <receiver
+            android:name=".CassetteWidgetReceiver"
+            android:exported="true"
+            android:label="MiniLam Cassette">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/cassette_player_widget_info" />
+        </receiver>
+
+        <receiver
+            android:name=".SpectrumWidgetReceiver"
+            android:exported="true"
+            android:label="MiniLam Spectrum">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/spectrum_analyzer_widget_info" />
+        </receiver>
+
         <!-- Media Service -->
         <service
             android:name=".MiniLamMediaService"

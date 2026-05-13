@@ -1,9 +1,0 @@
-{
-	"appId": "com.minilam.os",
-	"appName": "MINILAM",
-	"webDir": "dist",
-	"server": {
-		"androidScheme": "https",
-		"hostname": "localhost"
-	}
-}

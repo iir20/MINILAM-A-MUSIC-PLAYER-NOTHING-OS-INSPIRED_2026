@@ -20,3 +20,11 @@ class VinylWidgetReceiver : GlanceAppWidgetReceiver() {
 class SystemStatusWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = SystemStatusWidget()
 }
+
+class CassetteWidgetReceiver : GlanceAppWidgetReceiver() {
+    override val glanceAppWidget: GlanceAppWidget = CassetteWidget()
+}
+
+class SpectrumWidgetReceiver : GlanceAppWidgetReceiver() {
+    override val glanceAppWidget: GlanceAppWidget = SpectrumWidget()
+}

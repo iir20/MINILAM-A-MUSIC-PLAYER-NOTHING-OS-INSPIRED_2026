@@ -6,7 +6,7 @@ android {
     namespace = "com.minilam.os"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.minilam.os"
+        applicationId "com.iir20.minilam"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

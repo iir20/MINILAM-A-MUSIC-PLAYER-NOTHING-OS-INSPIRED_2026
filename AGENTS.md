@@ -3,6 +3,11 @@
 ## Project Context
 MiniLam OS is a minimalist, high-fidelity music player application with a strong emphasis on visual aesthetics (Nothing OS, Industrial, Cyberpunk). It features advanced audio visualization and atmospheric environment effects.
 
+## Platform Architecture
+- **Web Core**: React 18 / Vite / TypeScript.
+- **Native Bridge**: Capacitor 6.0+.
+- **Android Layer**: Jetpack Compose / Jetpack Glance for high-performance native widgets.
+
 ## Visualizer Logic
 The application supports multiple visualization modes defined in `src/types.ts` as `VisMode`:
 - `VINYL`, `DOT_MATRIX`, `CASSETTE`, `WALKMAN`, `CD`, `DVD`, `RADIO`, `SPACE`, `NEURAL`, `GLYPH_PULSE`, `ANALOG_SCOPE`, `BENTO_GRID`, `ORBITAL`, `GLITCH_TUNNEL`, `ZEN_RING`.
@@ -19,3 +24,4 @@ The application supports environmental immersion modes defined in `src/types.ts`
 - Icons must be from `lucide-react`.
 - State is managed via `zustand` in `src/store/usePlayerStore.ts`.
 - Ensure high performance for canvases and animations.
+- AI Agents must prioritize atomic updates to both the React frontend and the matching native Android Glance components in `android/app/src/main/java/com/minilam/os/`.

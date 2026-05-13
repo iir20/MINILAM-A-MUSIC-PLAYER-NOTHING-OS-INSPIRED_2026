@@ -1,6 +1,6 @@
 {
-  "name": "Remix: MINILAM",
-  "description": "A premium futuristic music player concept for Nothing OS inspired by vinyl aesthetics and industrial cyberpunk design.",
+  "name": "MiniLam OS",
+  "description": "A minimalist, high-fidelity cyberpunk music player with advanced native widgets and atmospheric environment effects.",
   "requestFramePermissions": [
     "notifications"
   ]

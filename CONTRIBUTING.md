@@ -1,19 +1,16 @@
 # Contributing to MiniLam OS
 
-We welcome contributions! Please follow these guidelines:
+We are building the future of minimalist audio interaction. 
 
-## How to Contribute
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes and ensure they follow the project's coding standards.
-4. Submit a pull request with a clear description of your changes.
+## Contribution Flow
+1. **Report**: Open an issue for bugs or aesthetic suggestions.
+2. **Branch**: Use a clear naming convention (e.g., `feat/new-visualizer` or `fix/widget-alignment`).
+3. **Commit**: Use the `feat:` or `fix:` prefix for all commit messages.
+4. **Design Check**: Ensure all UI changes follow the **Nothing OS** / **Cyberpunk** aesthetic (Mono fonts, Red accents, high-contrast dark mode).
 
-## Development Setup
-1. Clone the repository.
-2. Install dependencies: `npm install`.
-3. Start the dev server: `npm run dev`.
+## Code Standards
+- **Native**: New Android widgets should be built using Jetpack Glance.
+- **Web**: Components must be responsive and follow the Fluidity pattern (see `AGENTS.md`).
+- **Animations**: Use `motion/react` for buttery smooth 60fps transitions.
 
-## Standards
-- Use TypeScript for all code.
-- Follow the existing folder structure.
-- Document new features in the `README.md`.
+Join us in refining the OS.

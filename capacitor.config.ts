@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.minilam.os',
+  appId: 'com.iir20.minilam',
   appName: 'MINILAM',
   webDir: 'dist',
   server: {
