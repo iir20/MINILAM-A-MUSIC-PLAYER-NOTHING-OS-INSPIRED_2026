@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { X, LayoutGrid, Sparkles, Plus, Pin, PinOff } from 'lucide-react';
+import { X, LayoutGrid, Sparkles, Plus, Pin, PinOff, Info } from 'lucide-react';
 import { usePlayerStore } from '../store/usePlayerStore';
 import VinylWidget from './widgets/VinylWidget';
 import DotMatrixWidget from './widgets/DotMatrixWidget';
@@ -35,8 +35,9 @@ export default function WidgetDashboard({ onClose }: WidgetDashboardProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-3xl flex flex-col pt-safe px-6 overflow-y-auto nothing-scroll">
-      {/* Header */}
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-3xl overflow-y-auto nothing-scroll">
+      <div className="min-h-full flex flex-col pt-safe px-6">
+        {/* Header */}
       <header className="h-20 lg:h-32 flex items-center justify-between shrink-0 mb-8 border-b border-white/5">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-3">
@@ -53,6 +54,19 @@ export default function WidgetDashboard({ onClose }: WidgetDashboardProps) {
         </button>
       </header>
 
+      {/* Info Notice about Home Screen Widgets */}
+      <div className="mb-12 p-6 bg-nothing-red/5 border border-nothing-red/10 rounded-[24px] flex items-start gap-5">
+         <Info className="w-5 h-5 text-nothing-red shrink-0 mt-1" />
+         <div className="space-y-3">
+            <h3 className="dot-matrix text-[11px] font-bold text-nothing-red tracking-widest uppercase">System_Note: Home_Screen_Widgets</h3>
+            <p className="text-[10px] font-mono opacity-60 leading-relaxed uppercase max-w-2xl">
+               Due to browser limitations, these widgets live inside the MiniLam ecosystem. 
+               For a Home Screen experience, use "Add to Home Screen" in your browser menu. 
+               Native Android/iOS home screen widgets are currently in prototype phase for future standalone builds.
+            </p>
+         </div>
+      </div>
+
       {/* Grid Layouts */}
       <div className="flex-1 pb-32 space-y-16">
         {/* Core System Widgets */}
@@ -67,10 +81,10 @@ export default function WidgetDashboard({ onClose }: WidgetDashboardProps) {
                 <NothingStatusWidget />
               </WidgetWrapper>
               <WidgetWrapper id="vinyl_med" label="Vinyl Deck">
-                <VinylWidget size="medium" />
+                <VinylWidget size="medium" reduced={true} />
               </WidgetWrapper>
               <WidgetWrapper id="dotmatrix_med" label="Matrix Vis">
-                <DotMatrixWidget size="medium" />
+                <DotMatrixWidget size="medium" reduced={true} />
               </WidgetWrapper>
            </div>
         </section>
@@ -84,16 +98,16 @@ export default function WidgetDashboard({ onClose }: WidgetDashboardProps) {
            
            <div className="flex flex-wrap gap-8">
               <WidgetWrapper id="vinyl_sm" label="Vinyl Mini">
-                <VinylWidget size="small" />
+                <VinylWidget size="small" reduced={true} />
               </WidgetWrapper>
               <WidgetWrapper id="dotmatrix_sm" label="Matrix Mini">
-                <DotMatrixWidget size="small" />
+                <DotMatrixWidget size="small" reduced={true} />
               </WidgetWrapper>
               <WidgetWrapper id="cassette_sm" label="Tape Mini">
-                <CassetteWidget size="small" />
+                <CassetteWidget size="small" reduced={true} />
               </WidgetWrapper>
               <WidgetWrapper id="cd_sm" label="CD Mini">
-                <CDWidget size="small" />
+                <CDWidget size="small" reduced={true} />
               </WidgetWrapper>
               {/* Empty slot placeholder */}
               <div className="w-40 h-40 rounded-[24px] border border-white/5 border-dashed flex flex-col items-center justify-center gap-2 opacity-20 hover:opacity-40 transition-opacity cursor-pointer">
@@ -138,6 +152,7 @@ export default function WidgetDashboard({ onClose }: WidgetDashboardProps) {
          <span className="dot-matrix text-[8px] tracking-[0.5em] uppercase">Minilam // Laboratory // System_Widgets</span>
          <div className="w-1 h-1 rounded-full bg-nothing-red" />
       </footer>
+      </div>
     </div>
   );
 }

@@ -5,19 +5,51 @@ import { useHaptics } from '../../hooks/useHaptics';
 
 interface WidgetProps {
   size: 'small' | 'medium' | 'large';
+  reduced?: boolean;
 }
 
-export default function VinylWidget({ size }: WidgetProps) {
-  const { currentSong, isPlaying, progress, setIsPlaying } = usePlayerStore();
+export default function VinylWidget({ size, reduced = false }: WidgetProps) {
+  const currentSong = usePlayerStore(state => state.currentSong);
+  const isPlaying = usePlayerStore(state => state.isPlaying);
+  const progress = usePlayerStore(state => state.progress);
+  const performanceMode = usePlayerStore(state => state.performanceMode);
+  const aiState = usePlayerStore(state => state.aiState);
+  const systemState = usePlayerStore(state => state.systemState);
+  const setIsPlaying = usePlayerStore(state => state.setIsPlaying);
+  
   const { trigger } = useHaptics();
 
-  const rotation = isPlaying ? progress * 60 : 0;
+  const isBatterySaver = systemState?.isBatterySaver || false;
+  // If in dashboard and not explicit, we should probably be in reduced mode anyway
+  const isReduced = reduced || !performanceMode || isBatterySaver;
+  
+  // Dynamic rotation speed based on BPM and battery state
+  const bpm = currentSong?.bpm || 120;
+  const multiplier = isBatterySaver ? 0.5 : (bpm / 120);
+  
+  // OPTIMIZATION: If reduced is true, we make it completely static to save performance in dashboard
+  const rotation = isPlaying && !isReduced ? (progress * 60 * multiplier) : 0;
+  
+  const accentColor = aiState?.accentColor || '#ff3b30';
 
   return (
     <div className={`relative bg-black/40 backdrop-blur-2xl border border-white/5 rounded-[24px] overflow-hidden flex flex-col p-4 shadow-xl group transition-all hover:border-white/10 ${
       size === 'small' ? 'w-40 h-40' : size === 'medium' ? 'w-80 h-40' : 'w-80 h-80'
     }`}>
       <div className="flex-1 flex items-center justify-center relative">
+        {/* Mood Reactive Glow - Disabled in reduced mode */}
+        {!isReduced && (
+          <motion.div 
+            animate={{ 
+              opacity: isPlaying ? [0.1, 0.3, 0.1] : 0,
+              scale: isPlaying ? [1, 1.1, 1] : 1
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+            style={{ backgroundColor: accentColor }}
+            className="absolute w-24 h-24 rounded-full blur-[40px] pointer-events-none"
+          />
+        )}
+
         <motion.div 
           animate={{ rotate: rotation }}
           className="relative aspect-square h-full rounded-full bg-[#050505] shadow-2xl flex items-center justify-center p-1"
@@ -37,7 +69,7 @@ export default function VinylWidget({ size }: WidgetProps) {
           </div>
         </motion.div>
 
-        {size !== 'small' && (
+        {size !== 'small' && !reduced && (
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
             <button 
               onClick={(e) => { e.stopPropagation(); setIsPlaying(!isPlaying); trigger('controls'); }}

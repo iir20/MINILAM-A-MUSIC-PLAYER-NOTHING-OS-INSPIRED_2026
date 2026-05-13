@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">MINILAM</string>
-    <string name="title_activity_main">MINILAM</string>
+    <string name="app_name">MiniLam OS</string>
+    <string name="title_activity_main">MiniLam OS</string>
     <string name="package_name">com.minilam.os</string>
     <string name="custom_url_scheme">com.minilam.os</string>
+    <string name="widget_description_mini">MiniLam Music Player Controller</string>
+    <string name="widget_description_clock">MiniLam Dot Matrix System Clock</string>
+    <string name="widget_description_vinyl">MiniLam Active Vinyl Deck</string>
+    <string name="widget_description_system">MiniLam Cyberpunk System Status</string>
 </resources>

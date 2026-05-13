@@ -4,13 +4,16 @@ import { usePlayerStore } from '../../store/usePlayerStore';
 import { Zap, Battery, Signal, Clock } from 'lucide-react';
 
 export default function NothingStatusWidget() {
-  const { currentSong, isPlaying } = usePlayerStore();
+  const { currentSong, isPlaying, systemState } = usePlayerStore();
   const [time, setTime] = React.useState(new Date());
 
   React.useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const battery = systemState?.batteryLevel || 100;
+  const isBatterySaver = systemState?.isBatterySaver || false;
 
   return (
     <div className="relative w-80 h-40 bg-black/40 backdrop-blur-2xl border border-white/5 rounded-[24px] p-5 flex flex-col justify-between shadow-xl group transition-all hover:border-white/10">
@@ -19,12 +22,16 @@ export default function NothingStatusWidget() {
             <span className="dot-matrix text-[14px] font-bold tracking-[0.2em]">
               {time.getHours().toString().padStart(2, '0')}:{time.getMinutes().toString().padStart(2, '0')}
             </span>
-            <span className="text-[7px] dot-matrix opacity-20 uppercase tracking-[0.4em] mt-1">MAY_12_2026</span>
+            <span className="text-[7px] dot-matrix opacity-20 uppercase tracking-[0.4em] mt-1">
+              MAY_13_2026 // {isBatterySaver ? 'ECO_MODE' : 'PERF_MODE'}
+            </span>
          </div>
-         <div className="flex gap-4 opacity-40">
-            <Signal className="w-3 h-3" />
-            <Battery className="w-3 h-3" />
-            <Zap className="w-3 h-3 text-nothing-red" />
+         <div className="flex items-center gap-4 opacity-40">
+            <div className="flex items-center gap-1">
+               <span className="text-[8px] font-mono font-bold">{battery}%</span>
+               <Battery className={`w-3 h-3 ${isBatterySaver ? 'text-nothing-red' : ''}`} />
+            </div>
+            <Zap className={`w-3 h-3 ${isPlaying ? 'text-nothing-red animate-pulse' : ''}`} />
          </div>
       </div>
 

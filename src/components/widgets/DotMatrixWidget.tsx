@@ -2,8 +2,11 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { usePlayerStore } from '../../store/usePlayerStore';
 
-export default function DotMatrixWidget({ size }: { size: 'small' | 'medium' | 'large' }) {
-  const { currentSong, isPlaying } = usePlayerStore();
+export default function DotMatrixWidget({ size, reduced = false }: { size: 'small' | 'medium' | 'large', reduced?: boolean }) {
+  const currentSong = usePlayerStore(state => state.currentSong);
+  const isPlaying = usePlayerStore(state => state.isPlaying);
+  const performanceMode = usePlayerStore(state => state.performanceMode);
+  const isReduced = reduced || !performanceMode;
 
   return (
     <div className={`relative bg-black/40 backdrop-blur-2xl border border-white/5 rounded-[24px] p-5 flex flex-col justify-between shadow-xl group transition-all hover:border-white/10 ${
@@ -27,7 +30,7 @@ export default function DotMatrixWidget({ size }: { size: 'small' | 'medium' | '
            <motion.div 
              key={i}
              animate={{ 
-               height: isPlaying ? [`${20 + Math.random() * 60}%`, `${10 + Math.random() * 40}%`, `${20 + Math.random() * 70}%`] : '10%'
+               height: isPlaying && !isReduced ? [`${20 + Math.random() * 60}%`, `${10 + Math.random() * 40}%`, `${20 + Math.random() * 70}%`] : '10%'
              }}
              transition={{ duration: 0.2 + Math.random() * 0.3, repeat: Infinity }}
              className={`w-px lg:w-[2px] bg-white opacity-40 rounded-full ${i % 4 === 0 ? 'bg-nothing-red opacity-60' : ''}`}

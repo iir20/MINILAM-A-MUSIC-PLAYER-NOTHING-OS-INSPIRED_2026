@@ -2,8 +2,11 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { usePlayerStore } from '../../store/usePlayerStore';
 
-export default function CDWidget({ size }: { size: 'small' | 'medium' | 'large' }) {
-  const { currentSong, isPlaying, progress } = usePlayerStore();
+export default function CDWidget({ size, reduced = false }: { size: 'small' | 'medium' | 'large', reduced?: boolean }) {
+  const currentSong = usePlayerStore(state => state.currentSong);
+  const isPlaying = usePlayerStore(state => state.isPlaying);
+  const performanceMode = usePlayerStore(state => state.performanceMode);
+  const isReduced = reduced || !performanceMode;
 
   return (
     <div className={`relative bg-black/40 backdrop-blur-2xl border border-white/5 rounded-[24px] p-4 flex flex-col shadow-xl group transition-all hover:border-white/10 overflow-hidden ${
@@ -17,7 +20,7 @@ export default function CDWidget({ size }: { size: 'small' | 'medium' | 'large' 
       <div className="flex-1 flex items-center justify-center relative">
          {/* CD Surface with Rainbow Diffraction */}
          <motion.div 
-           animate={{ rotate: isPlaying ? 360 : 0 }}
+           animate={{ rotate: isPlaying && !isReduced ? 360 : 0 }}
            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
            className="relative aspect-square h-[80%] rounded-full bg-[#111] shadow-2xl flex items-center justify-center overflow-hidden border border-white/5"
          >
@@ -28,11 +31,13 @@ export default function CDWidget({ size }: { size: 'small' | 'medium' | 'large' 
             </div>
             
             {/* Laser Sweep */}
-            <motion.div 
-               animate={{ rotate: 360 }}
-               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-               className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent)] opacity-50"
-            />
+            {!isReduced && (
+              <motion.div 
+                 animate={{ rotate: 360 }}
+                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                 className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent)] opacity-50"
+              />
+            )}
          </motion.div>
       </div>
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Song, AppMode, VisMode, Playlist, HapticSettings, EQSettings, EQPreset, EnvironmentMode } from '../types';
+import { Song, AppMode, VisMode, Playlist, HapticSettings, EQSettings, EQPreset, EnvironmentMode, AIState, SystemState } from '../types';
 
 interface PlayerState {
   currentSong: Song | null;
@@ -18,6 +18,12 @@ interface PlayerState {
   performanceMode: boolean;
   pinnedWidgetIds: string[];
   environmentMode: EnvironmentMode;
+  
+  // AI-Reactive Engine
+  aiState: AIState;
+  
+  // System State
+  systemState: SystemState;
   
   // New Settings
   haptics: HapticSettings;
@@ -45,6 +51,11 @@ interface PlayerState {
   addToQueue: (song: Song) => void;
   removeFromQueue: (index: number) => void;
   
+  // Roadmap Actions
+  setAiState: (aiState: Partial<AIState> | ((prev: AIState) => AIState)) => void;
+  setSystemState: (systemState: Partial<SystemState> | ((prev: SystemState) => SystemState)) => void;
+  updatePixelShift: () => void;
+  
   setHaptics: (haptics: Partial<HapticSettings> | ((prev: HapticSettings) => HapticSettings)) => void;
   setEQ: (eq: Partial<EQSettings> | ((prev: EQSettings) => EQSettings)) => void;
   setEQPreset: (preset: EQPreset) => void;
@@ -67,6 +78,25 @@ export const usePlayerStore = create<PlayerState>((set) => ({
   performanceMode: true,
   pinnedWidgetIds: [],
   environmentMode: 'NONE',
+
+  aiState: {
+    mood: 'NEURAL',
+    intensity: 0.5,
+    energy: 0.5,
+    accentColor: '#FFFFFF'
+  },
+
+  systemState: {
+    batteryLevel: 100,
+    isBatterySaver: false,
+    isNightTime: false,
+    isIdle: false,
+    performanceMode: true,
+    oledProtection: {
+      pixelShift: { x: 0, y: 0 },
+      dimming: 1
+    }
+  },
 
   haptics: {
     enabled: true,
@@ -140,6 +170,27 @@ export const usePlayerStore = create<PlayerState>((set) => ({
   addToQueue: (song) => set((state) => ({ queue: [...state.queue, song] })),
   removeFromQueue: (index) => set((state) => ({ 
     queue: state.queue.filter((_, i) => i !== index) 
+  })),
+
+  setAiState: (aiState) => set((state) => ({
+    aiState: typeof aiState === 'function' ? aiState(state.aiState) : { ...state.aiState, ...aiState }
+  })),
+  
+  setSystemState: (systemState) => set((state) => ({
+    systemState: typeof systemState === 'function' ? systemState(state.systemState) : { ...state.systemState, ...systemState }
+  })),
+
+  updatePixelShift: () => set((state) => ({
+    systemState: {
+      ...state.systemState,
+      oledProtection: {
+        ...state.systemState.oledProtection,
+        pixelShift: {
+          x: Math.floor(Math.random() * 3) - 1, // -1, 0, or 1
+          y: Math.floor(Math.random() * 3) - 1
+        }
+      }
+    }
   })),
   
   setHaptics: (haptics) => set((state) => ({

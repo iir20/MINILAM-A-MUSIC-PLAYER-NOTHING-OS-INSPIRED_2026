@@ -1,241 +1,58 @@
-# 🎵 DotMatrix Music App
+# 🚀 MiniLam OS — The Cyberpunk Audio Ecosystem
 
-A futuristic, cyberpunk-inspired music experience built with a **dot-matrix UI system**, inspired by minimal hardware aesthetics like Nothing OS and next-generation digital interfaces.
+MiniLam OS is an adaptive, cyberpunk-native audio operating system inspired by Nothing OS, futuristic dot-matrix hardware, and OLED minimalism. It transforms your music listening experience into an immersive interactive environment.
 
----
+## 🌌 The Evolutionary Vision
 
-## 🚀 Overview
+MiniLam OS is no longer just a music player. It is a living UI that reacts to your music, your device, and your environment.
 
-DotMatrix Music App is a modern experimental music player that combines:
+### 🎨 Adaptive Material You Cyberpunk Engine
+- **Dynamic Theme Fusion**: Extracts Material You palette from your wallpaper and converts it into high-contrast cyberpunk tones.
+- **Accent Intelligence**: Dynamic color shifts based on music mood (Red for Energetic, Blue for Ambient, Purple for Synthwave).
+- **Smart Night Mode**: UI softens and contrast reduces automatically after dark.
 
-- 🎛 Dot-matrix LED interface design
-- 🌌 Cyberpunk + minimal UI philosophy
-- 🎧 Immersive audio experience
-- ⚡ Lightweight, high-performance architecture
-- 📱 Mobile-first design (Capacitor-ready / PWA-ready)
+### 🤖 AI-Reactive Widget System
+- **Context-Aware Surfaces**: Widgets that react to music BPM, energy, and frequency intensity.
+- **Environmental Reactivity**: Detects night-time and device idle states to shift into ambient modes.
+- **Battery Saver Intelligence**: Automatically enters low-power rendering when battery is low.
 
-This project focuses on **visual identity + emotional interaction with music**, not just playback.
+### 🛡️ OLED Burn Protection System
+- **Pixel Shifting**: Subtle, invisible UI shifts to prevent static burn.
+- **Adaptive Dimming**: Intelligent brightness reduction for static elements.
+- **Micro-Motion Engine**: Clock and indicators feature slight movement to preserve OLED health.
 
----
+### 🔊 Native Glyph Engine
+- **Rhythm Reactive Lighting**: Visual pulses synchronized with kick drums and bass transients.
+- **Dot Matrix Spectrum**: Terminal-inspired diagnostic visualizers optimized for performance.
+- **Vinyl Reactive Ring**: Virtual stylus and disc movement mapped to audio energy.
 
-## ✨ Key Features
+## 🛠️ Tech Stack & Android Integration
 
-### 🎧 Music System
-- High-quality audio playback (MP3 / streaming-ready)
-- Play / pause / skip / seek controls
-- Playlist management system
-- Background playback support
-- Auto-resume last session
+MiniLam is built for the modern mobile ecosystem:
+- **Frontend**: React 18 / Vite / TypeScript
+- **Animations**: Framer Motion (`motion/react`)
+- **State**: Zustand
+- **Native Widgets**: Jetpack Glance (Android)
+- **Media Engine**: Media3 Session / ExoPlayer
+- **UI Logic**: Kotlin 2.1 / Material You APIs
 
----
+## 🚀 Getting Started
 
-### 🧠 Smart UI System
-- Dot-matrix animated typography
-- Sound-reactive visual feedback (audio waveform glow)
-- Dynamic UI that reacts to beats
-- Minimal gesture-based controls
-- Smooth micro-interactions
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+2. **Launch Preview**:
+   ```bash
+   npm run dev
+   ```
 
----
+## 🏁 Philosophy
 
-### 🎨 Visual Design Language
-- Black matte cyberpunk theme
-- White LED-style dot grid system
-- Neon accent highlights (red / cyan optional)
-- Glassmorphism overlays
-- Futuristic glyph-inspired icons
-
----
-
-### 📱 Mobile Experience
-- Capacitor Android support
-- PWA-ready installable app
-- Optimized touch gestures
-- Low battery consumption UI mode
-- Offline caching support (optional)
+> "Music should not only be heard. It should transform the operating system itself."
 
 ---
 
-## 🧱 Tech Stack
+## 📜 License
 
-### Frontend
-- React / Vite
-- TypeScript
-- Tailwind CSS (custom cyberpunk theme)
-- Framer Motion (animations)
-
-### Mobile Layer
-- Capacitor.js (Android / iOS support)
-
-### Audio Engine
-- Web Audio API
-- HTML5 Audio fallback system
-
----
-
-## 📁 Project Structure
-
-src/ ├── assets/          # Icons, audio samples, fonts ├── components/      # UI components (buttons, player, grids) ├── pages/           # App screens (Home, Player, Library) ├── hooks/           # Custom React hooks ├── styles/          # Global themes (dot-matrix system) ├── utils/           # Helpers (audio logic, formatting) └── App.tsx
-
----
-
-## 🎮 UI Philosophy
-
-This project is built on 3 core principles:
-
-### 1. Minimal Signal Design
-Only essential elements are visible. Everything else fades into the background.
-
-### 2. Dot-Matrix Identity
-All UI elements are constructed using:
-- Micro dots
-- Grid alignment
-- Digital pixel logic
-
-### 3. Emotional Audio Feedback
-Every interaction produces:
-- Subtle vibration (mobile)
-- Visual pulse
-- Light animation response
-
----
-
-## ⚙️ Installation
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/yourusername/dotmatrix-music-app.git
-cd dotmatrix-music-app
-
-2. Install Dependencies
-
-npm install
-
-3. Run Development Server
-
-npm run dev
-
-
----
-
-📱 Android Build (Capacitor)
-
-Sync Project
-
-npm run build
-npx cap sync android
-
-Open Android Studio
-
-npx cap open android
-
-Generate APK
-
-./gradlew assembleDebug
-
-
----
-
-🎨 UI Theme System
-
-Core Colors
-
-Background: #000000
-
-Primary: #FFFFFF
-
-Accent Red: #FF2E2E
-
-Accent Cyan: #00FFFF
-
-Grid Gray: #1A1A1A
-
-
-
----
-
-🔊 Audio Behavior System
-
-Beat detection ready (optional module)
-
-Reactive glow intensity based on volume
-
-Smooth crossfade transitions
-
-Low-latency playback mode
-
-
-
----
-
-🧠 Future Roadmap
-
-[ ] AI-based playlist generation
-
-[ ] Real-time beat visualization engine
-
-[ ] Glyph-based control system
-
-[ ] Offline music library encryption
-
-[ ] Wearable device sync support
-
-[ ] Voice-controlled playback system
-
-[ ] Social music sharing system
-
-
-
----
-
-🧪 Performance Goals
-
-< 50ms UI interaction delay
-
-Smooth 60 FPS animations
-
-Minimal battery usage on mobile
-
-Lightweight bundle size optimization
-
-
-
----
-
-📸 Concept Vision
-
-> “Music is not just heard — it is seen, felt, and interacted with.”
-
-
-
-This app reimagines music as a visual cybernetic experience, where every sound is translated into a digital pulse inside a living dot-matrix system.
-
-
----
-
-👨‍💻 Developer Notes
-
-This project is designed for experimentation in:
-
-Future UI systems
-
-Audio-reactive interfaces
-
-Minimal cyberpunk design language
-
-Mobile-first hybrid apps
-
-
-
----
-
-📄 License
-
-MIT License — free to use, modify, and build upon.
-
-
----
-
-⚡ Credits
-
-Created with a vision for next-generation digital music interaction systems.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

@@ -25,18 +25,22 @@ interface VisualizerProps {
 }
 
 export default function Visualizer({ isPlaying, bpm, color, onTogglePlay, onNext, onPrev, getFrequencyData }: VisualizerProps) {
-  const { visMode, currentSong, performanceMode } = usePlayerStore();
+  const { visMode, currentSong, performanceMode, aiState } = usePlayerStore();
   const bars = Array.from({ length: 72 }); 
   const pulseDuration = 60 / bpm;
+  
+  // Use AI reactive color if it exists, otherwise fallback to song color
+  const activeColor = aiState?.accentColor || color;
+  const moodIntensity = aiState?.intensity || 0.5;
 
   const renderVisualizer = () => {
     switch (visMode) {
       case 'CASSETTE':
-        return <CassetteVisualizer isPlaying={isPlaying} color={color} />;
+        return <CassetteVisualizer isPlaying={isPlaying} color={activeColor} />;
       case 'CD':
-        return <CDVisualizer isPlaying={isPlaying} color={color} />;
+        return <CDVisualizer isPlaying={isPlaying} color={activeColor} />;
       case 'SPACE':
-        return <SpaceVisualizer isPlaying={isPlaying} color={color} />;
+        return <SpaceVisualizer isPlaying={isPlaying} color={activeColor} />;
       case 'VINYL':
         return (
           <div className="scale-90 sm:scale-100 lg:scale-110">
@@ -113,11 +117,11 @@ export default function Visualizer({ isPlaying, bpm, color, onTogglePlay, onNext
             {/* Signal Intensity Pulse Ring */}
             <motion.div 
               animate={{ 
-                scale: isPlaying ? [1, 1.1, 1] : 1,
-                opacity: isPlaying ? [0.05, 0.2, 0.05] : 0 
+                scale: isPlaying ? [1, 1.1 + (moodIntensity * 0.1), 1] : 1,
+                opacity: isPlaying ? [0.05, 0.2 + (moodIntensity * 0.1), 0.05] : 0 
               }}
               transition={{ duration: pulseDuration, repeat: Infinity, ease: "easeOut" }}
-              style={{ borderColor: color }}
+              style={{ borderColor: activeColor }}
               className="absolute w-[80%] h-[80%] rounded-full border border-current blur-[2px]"
             />
 
@@ -131,10 +135,10 @@ export default function Visualizer({ isPlaying, bpm, color, onTogglePlay, onNext
                 let intensity = 0.15;
 
                 if (isBass) {
-                  heightRange = [40, 52];
+                  heightRange = [40, 52 + (moodIntensity * 10)];
                   intensity = 0.6;
                 } else if (i % 4 === 0) {
-                  heightRange = [40, 48];
+                  heightRange = [40, 48 + (moodIntensity * 5)];
                   intensity = 0.35;
                 }
 
@@ -144,7 +148,7 @@ export default function Visualizer({ isPlaying, bpm, color, onTogglePlay, onNext
                     className="absolute left-1/2 top-1/2 w-[1px] origin-bottom px-[0.5px]"
                     style={{
                       height: `${heightRange[0]}%`,
-                      backgroundColor: isPlaying ? (isBass ? '#ff3b30' : color) : 'rgba(255,255,255,0.02)',
+                      backgroundColor: isPlaying ? (isBass ? '#ff3b30' : activeColor) : 'rgba(255,255,255,0.02)',
                       transform: `rotate(${angle}deg) translateY(-100%)`,
                       opacity: isPlaying ? intensity : 0.02,
                       boxShadow: isPlaying && isBass ? '0 0 10px rgba(255,59,48,0.5)' : 'none'

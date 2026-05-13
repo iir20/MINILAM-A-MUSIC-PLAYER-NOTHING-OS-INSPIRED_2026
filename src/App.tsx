@@ -7,6 +7,8 @@ import Controls from './components/Controls';
 import AmbientMode from './components/AmbientMode';
 import SearchOverlay from './components/SearchOverlay';
 import Discovery from './components/Discovery';
+import OLEDGuard from './components/OLEDGuard';
+import { useThemeEngine } from './hooks/useThemeEngine';
 import SettingsOverlay from './components/Settings';
 import Lyrics from './components/Lyrics';
 import QueueView from './components/QueueView';
@@ -43,7 +45,9 @@ export default function App() {
   const [timerActive, setTimerActive] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   
-  const { currentSong, isPlaying, volume, progress, favorites, queue, playlists, visMode, allSongs, mode, isAiLoading, performanceMode, pinnedWidgetIds } = store;
+  const { currentSong, isPlaying, volume, progress, favorites, queue, playlists, visMode, allSongs, mode, isAiLoading, performanceMode, pinnedWidgetIds, systemState } = store;
+  useThemeEngine(); // vNext AI Engine
+  
   const { setCurrentSong, setIsPlaying, setVolume, setProgress, setQueue, setAllSongs, setVisMode, setMode, toggleFavorite, setFavorites, setPlaylists, setIsAiLoading, setPerformanceMode, togglePinnedWidget, setPinnedWidgetIds } = store;
   const { trigger } = useHaptics();
   
@@ -478,7 +482,7 @@ export default function App() {
     const input = document.createElement('input');
     input.type = 'file';
     input.multiple = true;
-    input.accept = 'audio/*';
+    input.accept = 'audio/*, .mp3, .wav, .flac, .m4a, .ogg, .aac, .wma';
     
     input.onchange = async (e: any) => {
       const files = e.target.files;
@@ -489,6 +493,8 @@ export default function App() {
       playClick(400, 0.2);
 
       const newSongs: Song[] = [];
+      const timestamp = Date.now();
+      
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         setScanProgress(((i + 1) / files.length) * 100);
@@ -500,7 +506,7 @@ export default function App() {
             : 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1000&auto=format&fit=crop';
 
           const song: Song = {
-            id: `local-${Date.now()}-${i}`,
+            id: `local-${timestamp}-${i}-${Math.random().toString(36).substr(2, 9)}`,
             title: metadata.common.title || file.name.replace(/\.[^/.]+$/, ""),
             artist: metadata.common.artist || "Unknown Artist",
             album: metadata.common.album || "Unknown Album",
@@ -516,7 +522,7 @@ export default function App() {
         } catch (err) {
           console.error("Error parsing metadata", err);
           newSongs.push({
-            id: `local-${Date.now()}-${i}`,
+            id: `local-${timestamp}-${i}-${Math.random().toString(36).substr(2, 9)}`,
             title: file.name.replace(/\.[^/.]+$/, ""),
             artist: "Local Archive",
             album: "Phone Storage",
@@ -638,8 +644,26 @@ export default function App() {
     trigger('controls');
   };
 
+  // Apply Pixel Shift and Dimming for OLED protection
+  const { x, y } = systemState.oledProtection.pixelShift;
+  const dim = systemState.isIdle ? 0.3 : 1;
+  const isNight = systemState.isNightTime;
+
   return (
-    <div className="relative h-screen w-full bg-[#050505] text-[#F2F2F2] font-sans flex flex-col overflow-hidden">
+    <div 
+      className="relative h-screen w-full bg-[#050505] text-[#F2F2F2] font-sans flex flex-col overflow-hidden transition-all duration-1000"
+      style={{ 
+        transform: (x === 0 && y === 0) ? 'none' : `translate(${x}px, ${y}px)`,
+        opacity: dim,
+        filter: (systemState.isIdle || isNight) 
+          ? `contrast(${systemState.isIdle ? 0.8 : 1}) brightness(${systemState.isIdle ? 0.7 : 1}) grayscale(${isNight ? 0.3 : 0})` 
+          : 'none'
+      }}
+    >
+      <OLEDGuard>
+        {/* OLEDGuard now only handles the logic (shifting timer/idle detection) without rendering a wrapper */}
+        {null}
+      </OLEDGuard>
       {/* Film Grain Layer - Lower Z-Index */}
       <div className="film-grain pointer-events-none absolute inset-0 z-[5] opacity-20" />
       
@@ -958,14 +982,14 @@ export default function App() {
                            className="pointer-events-auto shadow-2xl rounded-[24px]"
                          >
                            {id === 'nothingstatus' && <NothingStatusWidget />}
-                           {id === 'vinyl_med' && <VinylWidget size="medium" />}
-                           {id === 'vinyl_sm' && <VinylWidget size="small" />}
-                           {id === 'vinyl_lg' && <VinylWidget size="large" />}
-                           {id === 'dotmatrix_med' && <DotMatrixWidget size="medium" />}
-                           {id === 'dotmatrix_sm' && <DotMatrixWidget size="small" />}
-                           {id === 'cassette_sm' && <CassetteWidget size="small" />}
-                           {id === 'cassette_med' && <CassetteWidget size="medium" />}
-                           {id === 'cd_sm' && <CDWidget size="small" />}
+                           {id === 'vinyl_med' && <VinylWidget size="medium" reduced={!performanceMode} />}
+                           {id === 'vinyl_sm' && <VinylWidget size="small" reduced={!performanceMode} />}
+                           {id === 'vinyl_lg' && <VinylWidget size="large" reduced={!performanceMode} />}
+                           {id === 'dotmatrix_med' && <DotMatrixWidget size="medium" reduced={!performanceMode} />}
+                           {id === 'dotmatrix_sm' && <DotMatrixWidget size="small" reduced={!performanceMode} />}
+                           {id === 'cassette_sm' && <CassetteWidget size="small" reduced={!performanceMode} />}
+                           {id === 'cassette_med' && <CassetteWidget size="medium" reduced={!performanceMode} />}
+                           {id === 'cd_sm' && <CDWidget size="small" reduced={!performanceMode} />}
                          </motion.div>
                        ))}
                      </AnimatePresence>

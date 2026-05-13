@@ -2,8 +2,12 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { usePlayerStore } from '../../store/usePlayerStore';
 
-export default function CassetteWidget({ size }: { size: 'small' | 'medium' | 'large' }) {
-  const { currentSong, isPlaying, progress } = usePlayerStore();
+export default function CassetteWidget({ size, reduced = false }: { size: 'small' | 'medium' | 'large', reduced?: boolean }) {
+  const currentSong = usePlayerStore(state => state.currentSong);
+  const isPlaying = usePlayerStore(state => state.isPlaying);
+  const progress = usePlayerStore(state => state.progress);
+  const performanceMode = usePlayerStore(state => state.performanceMode);
+  const isReduced = reduced || !performanceMode;
 
   return (
     <div className={`relative bg-black/40 backdrop-blur-2xl border border-white/5 rounded-[24px] p-4 flex flex-col shadow-xl group transition-all hover:border-white/10 ${
@@ -20,7 +24,7 @@ export default function CassetteWidget({ size }: { size: 'small' | 'medium' | 'l
       <div className="flex-1 flex items-center justify-center gap-6 relative">
          <div className="relative w-14 h-14 rounded-full border border-white/5 bg-black flex items-center justify-center">
             <motion.div 
-               animate={{ rotate: isPlaying ? 360 : 0 }}
+               animate={{ rotate: isPlaying && !isReduced ? 360 : 0 }}
                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                className="w-full h-full rounded-full border border-dashed border-white/10"
             />
@@ -31,7 +35,7 @@ export default function CassetteWidget({ size }: { size: 'small' | 'medium' | 'l
 
          <div className="relative w-14 h-14 rounded-full border border-white/5 bg-black flex items-center justify-center">
             <motion.div 
-               animate={{ rotate: isPlaying ? 360 : 0 }}
+               animate={{ rotate: isPlaying && !isReduced ? 360 : 0 }}
                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                className="w-full h-full rounded-full border border-dashed border-white/10"
             />
@@ -41,11 +45,13 @@ export default function CassetteWidget({ size }: { size: 'small' | 'medium' | 'l
          </div>
 
          {/* Analog Counter */}
-         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-black/60 rounded border border-white/5">
-            <span className="text-[9px] font-mono text-nothing-red opacity-60">
-              00:{Math.floor(progress).toString().padStart(3, '0')}
-            </span>
-         </div>
+         {!isReduced && (
+           <div className="absolute bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-black/60 rounded border border-white/5">
+              <span className="text-[9px] font-mono text-nothing-red opacity-60">
+                00:{Math.floor(progress).toString().padStart(3, '0')}
+              </span>
+           </div>
+         )}
       </div>
 
       <div className="mt-auto pt-2 border-t border-white/5">

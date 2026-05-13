@@ -56,4 +56,25 @@ export interface EQSettings {
   gain: number;
 }
 
+export type MusicMood = 'ENERGETIC' | 'AMBIENT' | 'SYNTHWAVE' | 'RETRO' | 'MELANCHOLIC' | 'NEURAL';
+
+export interface AIState {
+  mood: MusicMood;
+  intensity: number; // 0 to 1
+  energy: number; // 0 to 1
+  accentColor: string;
+}
+
+export interface SystemState {
+  batteryLevel: number;
+  isBatterySaver: boolean;
+  isNightTime: boolean;
+  isIdle: boolean;
+  performanceMode: boolean;
+  oledProtection: {
+    pixelShift: { x: number; y: number };
+    dimming: number; // 0 to 1
+  };
+}
+
 export type EQPreset = 'FLAT' | 'WARM' | 'BASS_BOOST' | 'VINYL' | 'STUDIO' | 'NIGHT_DRIVE' | 'TAPE' | 'CYBERPUNK';
