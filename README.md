@@ -1,3 +1,4 @@
+<img width="1200" height="595" alt="1000088179" src="https://github.com/user-attachments/assets/408f6182-8630-4a96-a371-e539cd738b3f" />
 # 🚀 MiniLam OS — The Cyberpunk Audio Ecosystem
 
 MiniLam OS is an adaptive, cyberpunk-native audio operating system inspired by Nothing OS, futuristic dot-matrix hardware, and OLED minimalism. It transforms your music listening experience into an immersive interactive environment.
