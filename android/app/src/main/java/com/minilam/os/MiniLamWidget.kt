@@ -140,11 +140,11 @@ class MiniLamWidget : GlanceAppWidget() {
             ) {
                 Box(
                     modifier = GlanceModifier
-                        .defaultWeight(0.65f)
+                        .defaultWeight()
                         .fillMaxHeight()
                         .background(Color(0xFFFF3B30))
                 ) {}
-                Spacer(modifier = GlanceModifier.defaultWeight(0.35f))
+                Spacer(modifier = GlanceModifier.defaultWeight())
             }
         }
     }
