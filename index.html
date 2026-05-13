@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>MINILAM // ARC_ENGINE</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="boot-error" style="display: none; position: fixed; inset: 0; background: black; color: white; padding: 20px; font-family: monospace; z-index: 9999;">
+      <h2>CRITICAL BOOT ERROR</h2>
+      <p id="error-msg"></p>
+      <button onclick="location.reload()" style="background: white; color: black; border: none; padding: 10px 20px; border-radius: 4px;">RETRY</button>
+    </div>
+
+    <script>
+      window.onerror = function(msg, url, line, col, error) {
+        var errBox = document.getElementById('boot-error');
+        if (errBox) {
+          errBox.style.display = 'block';
+          document.getElementById('error-msg').innerText = msg + '\nAt: ' + url + ':' + line + (error ? '\nStack: ' + error.stack : '');
+        }
+        return false;
+      };
+      // Check if root is empty after 30 seconds
+      setTimeout(() => {
+        const root = document.getElementById('root');
+        if (root && root.innerHTML === '') {
+          var errBox = document.getElementById('boot-error');
+          if (errBox) {
+            errBox.style.display = 'block';
+            document.getElementById('error-msg').innerText = 'Initializing... Still loading after 30 seconds.\n\nTroubleshooting:\n1. Check your internet connection\n2. Clear app storage if this persists\n3. Try restarting the app';
+          }
+        }
+      }, 30000);
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
