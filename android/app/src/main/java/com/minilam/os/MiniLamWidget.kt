@@ -31,7 +31,7 @@ import java.util.*
 
 class MiniLamWidget : GlanceAppWidget() {
 
-    override suspend fun provideContent(context: Context, id: GlanceId) {
+    override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             GlanceTheme {
                 WidgetContent(context)
@@ -303,7 +303,7 @@ class ControlActionCallback : ActionCallback {
 
 
 class ClockWidget : GlanceAppWidget() {
-    override suspend fun provideContent(context: Context, id: GlanceId) {
+    override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             GlanceTheme {
                 Column(

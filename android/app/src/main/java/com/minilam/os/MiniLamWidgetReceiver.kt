@@ -14,9 +14,9 @@ class ClockWidgetReceiver : GlanceAppWidgetReceiver() {
 }
 
 class VinylWidgetReceiver : GlanceAppWidgetReceiver() {
-    override val glanceAppWidget: GlanceAppWidget = MiniLamWidget()
+    override val glanceAppWidget: GlanceAppWidget = VinylWidget()
 }
 
 class SystemStatusWidgetReceiver : GlanceAppWidgetReceiver() {
-    override val glanceAppWidget: GlanceAppWidget = MiniLamWidget()
+    override val glanceAppWidget: GlanceAppWidget = SystemStatusWidget()
 }

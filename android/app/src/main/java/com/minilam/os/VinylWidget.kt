@@ -15,7 +15,7 @@ import androidx.glance.text.TextStyle
 import androidx.compose.ui.graphics.Color as ComposeColor
 
 class VinylWidget : GlanceAppWidget() {
-    override suspend fun provideContent(context: Context, id: GlanceId) {
+    override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             Column(
                 modifier = GlanceModifier
